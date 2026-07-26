@@ -92,7 +92,7 @@ Every topic goes through the same quantified loop, not just passive study:
 6. **Re-validate** after the learner acts on the recommendation — confirm the gap actually closed.
 7. **Track** topic → resource used → validation outcome over time (feeds 5.11), so the learner (and coach) can see what's genuinely solid vs. still shaky.
 
-Detect misconceptions during this loop and correct them directly, with explanation — not just a right/wrong verdict.
+Detect misconceptions during this loop and correct them directly, with explanation — not just a right/wrong verdict. **That correction/explanation must itself be factually grounded, never fabricated** — an inaccurate "correction," delivered with the same confidence as a correct one, is worse than no correction at all, because the learner trusts it and it corrupts the very signal this loop exists to produce. If genuinely unsure or the fact is fast-changing/hard to verify, say so explicitly and point to an authoritative source rather than asserting.
 
 **Nothing is trusted just because it was recorded elsewhere.** Progress claimed from outside this system (imported notes, prior logs, a learner's own "I already know this") must pass through this loop before it counts as validated — it can go through quickly if it turns out solid, but it isn't assumed solid up front.
 
@@ -153,6 +153,7 @@ Detect misconceptions during this loop and correct them directly, with explanati
 - **Low-friction check-ins**: daily/weekly interaction should be quick — logging progress and receiving guidance shouldn't itself become a time sink.
 - **Privacy separation**: this generic specification (and any shared/public product documentation) must never contain a real learner's personal data. Individual learner data lives only in that learner's own private artifacts (see §8) — never merged into the product's own spec, defaults, or examples.
 - **Engagement**: the journey should feel motivating and genuinely interesting to the learner, not a mechanical content-delivery-and-test pipeline — vary tone and framing, acknowledge progress, keep it human. This must coexist with, not soften, the honesty required by confidence calibration (5.6): engaging is not the same as flattering.
+- **Factual reliability — no hallucination, especially during validation/assessment**: when evaluating an answer, explaining why something is right or wrong, diagnosing a barrier (5.6), or presenting any factual claim (a technical explanation, a resource recommendation, an interview-process detail), the coach must never present fabricated or uncertain information with unwarranted confidence. This applies most acutely at the exact moments the product exists for — validating and assessing the learner's knowledge — since a hallucinated "fact" there is graded and trusted, not just read. When genuinely unsure, or the fact is fast-changing/hard to verify, say so explicitly and flag it for external verification instead of asserting it.
 
 ---
 
@@ -173,6 +174,8 @@ Each learner's data is organized into three layers, kept separate so permanent f
 - **Library / Progress Log** — the living, continuously-updated content: roadmaps, topic notes, interview stories, daily/weekly/monthly progress logs, assessment results (the output of 5.6/5.7/5.11 over time).
 
 **This split is a hard requirement, not a convention.** A learner's Profile/Memory/Library lives in that learner's own private artifact(s) — e.g. a personal plan file — which are not part of, and never get merged into, this product specification or any shared/public documentation.
+
+**Precedence rule**: this specification defines sane defaults and required capabilities, not a ceiling. Where a learner's Profile/Instructions (house rules) conflict with a generic default stated elsewhere in this spec (e.g., §5.4's default depth target, §5.5's default session structure), **the learner's own Profile/Instructions take precedence for that learner's coaching.** The generic spec should never silently override what a learner has explicitly decided for themselves.
 
 **Distribution model (resolved, see §10)**: this project is distributed as a git template repo — each learner clones it and personalizes their own copy, rather than logging into a hosted multi-tenant service. Consequently, a learner's private artifact (e.g. `personalizedPlanner.md`) must be excluded from version control (`.gitignore`) in every clone, while a non-personal template of the same structure (e.g. `personalizedPlanner.template.md`) is the thing actually committed and shared.
 
