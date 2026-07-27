@@ -1,0 +1,10 @@
+{
+  "name": "@career-ai-coach/cli",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  }
+}
