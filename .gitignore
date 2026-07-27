@@ -1,3 +1,11 @@
 # Personal data — never commit. Each clone should copy personalizedPlanner.template.md to
 # personalizedPlanner.md and fill it in privately; that file must stay untracked.
 personalizedPlanner.md
+
+# Build/tooling
+node_modules/
+dist/
+*.tsbuildinfo
+.env
+.env.*
+coverage/
