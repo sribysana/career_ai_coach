@@ -2,7 +2,7 @@
 
 An AI-driven coach that takes you from your current skill level to interview-ready for a target role — builds a personalized plan, validates you actually understand each topic (not just that you studied it), tests you, keeps you honest against the plan, and runs mock interviews before the real ones.
 
-Full product spec: [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md).
+Full product spec: [`specs/product.md`](specs/product.md). Not sure which doc answers what? Start at [`specs/README.md`](specs/README.md).
 
 ---
 
@@ -11,7 +11,7 @@ Full product spec: [`docs/REQUIREMENTS.md`](docs/REQUIREMENTS.md).
 1. **Clone this repo.**
 2. **Copy the template**: `personalizedPlanner.template.md` → `personalizedPlanner.md`. This new file is yours alone — it's gitignored, so it never gets committed or pushed.
 3. **Fill it in**: your current role/background, target role, time budget, and target companies (see the template's comments for guidance).
-4. **Start working with your AI coach** (chat, CLI, or web app — see [`docs/REQUIREMENTS.md` §10](docs/REQUIREMENTS.md)), pointing it at your `personalizedPlanner.md`. It will run the gap analysis and generate your first daily/weekly plan from there.
+4. **Start working with your AI coach** (chat, CLI, or web app — see [`specs/product.md` §10](specs/product.md)), pointing it at your `personalizedPlanner.md`. It will run the gap analysis and generate your first daily/weekly plan from there.
 
 ## Development Setup
 
@@ -35,14 +35,16 @@ The codebase itself is a TypeScript monorepo (npm workspaces: `packages/core`, `
 | File                                                          | Purpose                                                                                                                                       |
 | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | `README.md`                                                   | This file — how to use the project.                                                                                                           |
+| `specs/README.md`                                             | Index of the docs below — start here if you're not sure which one answers your question.                                                     |
 | `specs/mission.md`, `specs/roadmap.md`, `specs/tech_stack.md` | This project's constitution — the durable "why," build sequencing, and technical decisions for the `career_ai_coach` software product itself. |
-| `docs/REQUIREMENTS.md`                                        | The full, generic product specification. No personal data lives here.                                                                         |
+| `specs/product.md`                                            | The full, generic product specification. No personal data lives here.                                                                         |
+| `specs/feature-name-YYYY-MM-DD/`                              | One dated implementation phase — `requirements.md` (scope), `plan.md` (tasks), `validation.md` (done/merge criteria).                          |
 | `personalizedPlanner.template.md`                             | Committed, empty template for a new learner's plan.                                                                                           |
 | `personalizedPlanner.md`                                      | **Your private plan** — gitignored, created from the template.                                                                                |
-| `old_README.md`                                               | Historical reference: the original manual (non-AI) version of this process.                                                                   |
+| `reference/manual-process.md`                                 | Historical reference: the original manual (non-AI) version of this process.                                                                   |
 
 ## A Note on Privacy
 
-Your `personalizedPlanner.md` holds personal data (background, employer, target companies, progress). It is `.gitignore`'d deliberately — see `docs/REQUIREMENTS.md` §6 and §8 for why this separation is a hard requirement of the design, not an afterthought.
+Your `personalizedPlanner.md` holds personal data (background, employer, target companies, progress). It is `.gitignore`'d deliberately — see `specs/product.md` §6 and §8 for why this separation is a hard requirement of the design, not an afterthought.
 
-If you're also using an AI coach to track broader AI-project work beyond this repo, keep that at a system/user level (outside any single project folder) rather than folding it into this one — see `docs/REQUIREMENTS.md` §8 for the reasoning.
+If you're also using an AI coach to track broader AI-project work beyond this repo, keep that at a system/user level (outside any single project folder) rather than folding it into this one — see `specs/product.md` §8 for the reasoning.

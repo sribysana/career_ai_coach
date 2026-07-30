@@ -14,7 +14,7 @@ In scope:
 - Linting and formatting.
 - Pre-commit enforcement.
 - Basic CI.
-- Minimal placeholder code only (e.g. an empty exported function) — enough to prove the build/lint/test pipeline works end to end, nothing that implements any capability from `docs/REQUIREMENTS.md` §5.
+- Minimal placeholder code only (e.g. an empty exported function) — enough to prove the build/lint/test pipeline works end to end, nothing that implements any capability from `specs/product.md` §5.
 
 Out of scope (deferred to later phases per `roadmap.md`):
 - `apps/web`, `apps/chat` — not created yet (Phase 14, Phase 19).

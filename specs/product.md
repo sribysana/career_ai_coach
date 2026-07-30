@@ -18,7 +18,7 @@ Interview preparation today is self-directed and fragile:
 - Plans drift. Life interrupts. There's no system watching for it or helping recover.
 - Progress is invisible — no persistent record of what was learned, tested, and mastered over time.
 
-A companion project (`old_README.md`) shows this problem lived out manually by one learner (a senior frontend engineer) — this product is the generalized, AI-driven version of that manual process.
+A companion project (`reference/manual-process.md`) shows this problem lived out manually by one learner (a senior frontend engineer) — this product is the generalized, AI-driven version of that manual process.
 
 ---
 
@@ -60,10 +60,12 @@ A companion project (`old_README.md`) shows this problem lived out manually by o
 - Surface this assessment to the learner explicitly (not just use it silently) so they can confirm or push back on it.
 
 ### 5.3 Target/Next-Role Awareness
-Two distinct input signals feed the gap analysis (5.4). **How they combine is an open design decision — see §10** — but both are required, not either/or:
+Two distinct input signals feed the gap analysis (5.4). **How they combine is resolved — see §10.1**: both are required, not either/or, and are merged into one source-tagged list per §5.15.
 
 - **(a) Current → target role comparison**: given the learner's current role/skills and their stated target/next role, derive what's typically expected to move from one to the other.
-- **(b) Live job market signal**: understand real, current job openings/requirements for the target role (title, seniority, domain) and extract the skills/competencies that show up repeatedly, including what's trending up/down — so the plan reflects current market demand, not just a static role-to-role delta. **Mechanism (resolved)**: an agentic workflow that goes through job platforms (e.g., LinkedIn, Naukri, Indeed) directly, rather than requiring the learner to manually paste postings. This must respect each platform's ToS/API constraints — use official APIs where available, stay rate-limit/auth-aware, and fall back to user-provided postings where automated access isn't permitted. Scraping in violation of a platform's terms is not an acceptable implementation path.
+- **(b) Live job market signal**: understand real, current job openings/requirements for the target role (title, seniority, domain) and extract the skills/competencies that show up repeatedly, including what's trending up/down — so the plan reflects current market demand, not just a static role-to-role delta. **Mechanism (two tiers, resolved)**:
+  - **Tier 1 — learner-supplied job description (near-term; see §5.15)**: the learner pastes or uploads a specific job posting; the coach extracts the role's requirements directly from it. No scraping or platform-access concerns — the learner already has the posting.
+  - **Tier 2 — automated multi-platform crawling (later)**: an agentic workflow that goes through job platforms (e.g., LinkedIn, Naukri, Indeed) directly, aggregating signal across many postings without the learner sourcing each one manually. This must respect each platform's ToS/API constraints — use official APIs where available, stay rate-limit/auth-aware, and fall back to learner-supplied postings (Tier 1) where automated access isn't permitted. Scraping in violation of a platform's terms is not an acceptable implementation path.
 
 ### 5.4 Skill Gap Analysis & Recommendations
 - Compare the learner's skill profile and qualification level (5.1–5.2) against the target/next-role signals (5.3).
@@ -85,8 +87,8 @@ Two distinct input signals feed the gap analysis (5.4). **How they combine is an
 Every topic goes through the same quantified loop, not just passive study:
 
 1. **Study** the topic (time-boxed per 5.5).
-2. **Apply it** to a concrete problem (e.g., for DSA: solve real problems on a practice platform; for other topics: an applied scenario, a design exercise, or an explain-it-back).
-3. **Evaluate quality**, not just correctness — how good was the approach/understanding, not just right-or-wrong.
+2. **Apply it** to a concrete problem, drawn from **real-world scenarios** rather than abstract puzzles (e.g., for DSA: a problem framed like one that actually comes up on the job, not just an arbitrary practice-platform exercise; for other topics: an applied scenario, a design exercise, or an explain-it-back grounded in a realistic situation). Tasks are presented as a **checklist** the learner works through, and follow an **adaptive difficulty ladder**: a clean pass moves the next task up in difficulty, a struggle drops it back down and re-teaches first — the ladder responds to actual performance rather than marching a fixed sequence regardless of how it's going.
+3. **Evaluate quality**, not just correctness — how good was the approach/understanding, not just right-or-wrong. This includes an explicit **implementation-pattern check**: did the learner reach for the right approach/pattern for this kind of problem, not just arrive at a working answer? Name the pattern explicitly. A solution that works but used the wrong pattern is still flagged — that gap is precisely what a real interviewer probes for.
 4. **Diagnose**: decide explicitly whether improvement is needed or the topic is solid enough for the interview bar — and when improvement is needed, diagnose *why* an answer was wrong, slow, or hesitant, not just that it was. Distinguish at minimum: a genuine conceptual gap, a speed/fluency gap (understands but too slow/rusty under interview time pressure), confidence/anxiety (knows it but freezes, second-guesses, or rushes and self-sabotages), or a communication gap (understands it, can't articulate it clearly). This mirrors the root-cause diagnosis §5.9 already requires for plan drift — it should exist at the individual-assessment level too, not just the plan level.
 5. **Prescribe**: if improvement is needed, recommend specific resources/practice targeting the *actual diagnosed cause* from step 4 — re-teach the concept, timed drilling for a fluency gap, lower-stakes confidence-building reps for anxiety, or practice explaining aloud for a communication gap. Never default to "study more" regardless of which cause was diagnosed.
 6. **Re-validate** after the learner acts on the recommendation — confirm the gap actually closed.
@@ -100,7 +102,7 @@ Detect misconceptions during this loop and correct them directly, with explanati
 
 ### 5.7 Knowledge Testing / Assessments
 - Every learning unit must have an associated assessment — either checkpoint assessments during the topic or a final assessment at the end (per topic, and periodically across topics for retention), as part of the loop in 5.6.
-- Assessments should mix formats appropriate to the topic (conceptual Q&A, applied/scenario questions, coding or design exercises where relevant).
+- Assessments should mix formats appropriate to the topic (conceptual Q&A, applied/scenario questions, coding or design exercises where relevant), grounded in real-world scenarios and following the same adaptive difficulty ladder as practice (5.6 step 2) — the assessment gate should feel like a continuation of practice, not a different, disconnected test.
 - **Prefer follow-up/scenario-based probing over single-shot recall questions.** A direct question only reveals *that* understanding is missing or shaky, never *why* — and the diagnosis in §5.6 step 4 depends on knowing why. Ask "why," "what if this changed," and scenario variations rather than stopping at one correct/incorrect answer.
 - Assessment results feed back into the skill profile (5.1) and plan (5.5) — a failed/weak assessment should adjust the plan, not just log a score.
 - **Portable, model-agnostic execution**: the assessment step (generate questions → validate the learner's answers → explain *why* a wrong answer is wrong → confirm the corrected understanding) must be expressible as a single, self-contained prompt that works in any LLM — so it survives the primary coach session running low on context/tokens, not just as a feature of one specific chat session.
@@ -143,6 +145,35 @@ Detect misconceptions during this loop and correct them directly, with explanati
 - Usable as a checkpoint at the end of any topic/phase, not reserved only as a final readiness gate.
 - Distinguish from §11: **human-staffed** mock interviews (a real person interviewing the learner) are out of scope; this AI-simulated capability is in scope.
 
+### 5.15 Job Support — Job Description Ingestion, Role Intelligence & Resume Tailoring
+Gives the learner a way to bring a *specific* real posting into the coaching loop, rather than relying only on the generic role-comparison signal (5.3a). This is Tier 1 of the live job market signal (5.3b).
+
+**Ingest.** Accept a job description as pasted text, a PDF, or a Word (`.docx`) document. **Job-portal URL ingestion is out of scope for v1** (see §11) — pending the same ToS/access-rights consideration already required for Tier 2 crawling (5.3b).
+
+**Extract a Role Profile.** Parse the posting into a structured profile: title, seniority, must-have vs. nice-to-have skills, tools/technologies, domain, years of experience expected, and core responsibilities.
+- What the posting **states** must be kept distinct from what the coach **infers** beyond the literal text — an inferred "must-have" presented as if the posting said so outright violates §6's factual-reliability rule.
+- **The learner must confirm or correct the extracted Role Profile before it drives anything downstream** (gap analysis, plan, or resume tailoring) — the same confirm-the-inferred-profile pattern §5.1 already applies to the skill profile. A silently wrong "must-have" would otherwise corrupt both the learning plan and the tailored resume without the learner ever seeing the mistake.
+
+**Merge into the gap analysis (5.4).** The confirmed Role Profile feeds the same gap analysis as the generic role-comparison signal (5.3a). **Signal-combination rule (resolves the former §10.2 open question)**: produce **one prioritized gap list, with every item tagged by the source(s) that surfaced it**, ordered:
+1. Confirmed by both the job description and the current→target role comparison
+2. Job-description-only
+3. Role-comparison-only
+
+Source tagging is required, not cosmetic — §6 already requires the learner always be able to see *why* a topic is prioritized, and a merged-but-untagged list would hide exactly that.
+
+**Market trends — scoped honestly.** With a single learner-supplied posting and no live data feed, any commentary on what's "trending" in the market can only draw on the AI model's training knowledge, not real-time data. Such commentary **must be explicitly labeled as model knowledge with a recency caveat**, never presented as live market data — this is §6's no-hallucination rule applied to the exact spot where it would be tempting to overstate currency. Real cross-posting trend aggregation is Tier 2's job (5.3b), once multiple postings' data actually exists to back a trend claim.
+
+**ATS-friendly resume tailoring.** Given the learner's existing resume and the confirmed Role Profile, produce a tailored resume draft aligned to the posting's language and likely ATS keyword matching, **accompanied by a change log** explaining each edit made and why.
+- **Hard rule**: the coach may only **reframe experience the learner actually has**. It must never invent a skill, title, employer, responsibility, or date to better match the posting. This is §6's factual-reliability principle and §5.12's "reframe real experience for the target role" pattern, applied to a document the learner will submit to a real employer — fabrication here is worse than a hallucinated study fact, because it can cost the learner their credibility or their offer.
+
+**Storage.** Ingested job descriptions and generated resume drafts are learner artifacts and belong to the Library layer (§8), gitignored like all other personal data — never merged into this specification.
+
+### 5.16 Retention Re-Checks
+Resolves the former §10.2 open question on retention/spaced repetition: **yes, mastered topics are periodically re-tested, with adaptive spacing** — not a one-time gate per topic, and not a fixed calendar applied uniformly.
+- A topic's next re-check interval is driven by its own assessment history (5.7, 5.11): topics the learner struggled with return sooner; topics passed cleanly return rarely, at widening intervals over time.
+- A re-check that reveals decay feeds back into the skill profile (5.1) and plan (5.10/5.9) the same way an initial assessment failure would — decay discovered here is a real regression, not a formality.
+- Depends on the progress history (5.11) existing to compute spacing from — see `roadmap.md` for phase sequencing.
+
 ---
 
 ## 6. Non-Functional Requirements
@@ -159,9 +190,9 @@ Detect misconceptions during this loop and correct them directly, with explanati
 
 ## 7. Data Inputs & Sources
 
-- Learner-provided: resume, self-reported skills, target role(s)/companies, available study time, existing notes (e.g., prior manual prep docs), real interview feedback/outcomes (5.13).
-- Job market: current job postings/requirements for target role(s) (source/integration TBD — see open questions).
-- System-generated: assessment results, topic study logs, plan-adherence history.
+- Learner-provided: resume, self-reported skills, target role(s)/companies, available study time, existing notes (e.g., prior manual prep docs), real interview feedback/outcomes (5.13), a specific job description to ingest (text/PDF/Word, 5.15).
+- Job market: current job postings/requirements for target role(s) — learner-supplied posting (5.15, Tier 1) near-term; automated multi-platform crawling (5.3b, Tier 2) later.
+- System-generated: assessment results, topic study logs, plan-adherence history, extracted Role Profiles and tailored resume drafts (5.15).
 
 ---
 
@@ -171,7 +202,7 @@ Each learner's data is organized into three layers, kept separate so permanent f
 
 - **Profile / Instructions** — stable "how to coach this learner" rules: target role, learning priorities, house rules (e.g., no unplanned topic-switching, time-boxing per topic, preferred reporting format). Changes rarely, edited deliberately.
 - **Memory / Facts** — stable facts about the learner: background, experience, current employer/project (only if the learner opts to share it), preferences, chosen resources, target locations. Not day-to-day noise.
-- **Library / Progress Log** — the living, continuously-updated content: roadmaps, topic notes, interview stories, daily/weekly/monthly progress logs, assessment results (the output of 5.6/5.7/5.11 over time).
+- **Library / Progress Log** — the living, continuously-updated content: roadmaps, topic notes, interview stories, daily/weekly/monthly progress logs, assessment results (the output of 5.6/5.7/5.11 over time), ingested job descriptions and their confirmed Role Profiles, and generated resume drafts with their change logs (5.15).
 
 **This split is a hard requirement, not a convention.** A learner's Profile/Memory/Library lives in that learner's own private artifact(s) — e.g. a personal plan file — which are not part of, and never get merged into, this product specification or any shared/public documentation.
 
@@ -200,20 +231,20 @@ Each learner's data is organized into three layers, kept separate so permanent f
 
 ### 10.1 Resolved Decisions
 
-- **Job market data source**: an agentic workflow crawling job platforms (LinkedIn, Naukri, Indeed, etc.) directly, respecting each platform's ToS/API constraints (see §5.3b).
+- **Job market data source**: two tiers (see §5.3b) — learner-supplied job description ingestion (§5.15, Tier 1, near-term) and an agentic workflow crawling job platforms (LinkedIn, Naukri, Indeed, etc.) directly (Tier 2, later), respecting each platform's ToS/API constraints.
 - **Single-user vs. multi-user**: distributed as a **git template repo** — not a hosted multi-tenant service. Each learner clones the repo and personalizes their own copy; personal artifacts are gitignored per clone (see §8).
 - **Platform**: a **combination** — web app, CLI, and chat interface all supported, not just one.
+- **Combining the two target-role signals (5.3)**: resolved by §5.15 — one prioritized gap list, every item tagged by which signal(s) surfaced it, ordered confirmed-by-both → job-description-only → role-comparison-only.
+- **Retention/spaced repetition**: resolved by §5.16 — mastered topics are re-tested periodically, with adaptive spacing driven by each topic's own assessment history, not a fixed calendar or a one-time gate.
 
 ### 10.2 Still Open
 
 These need stakeholder decisions before/during design:
 
-- **Combining the two target-role signals (5.3)**: how do (a) current→target role comparison and (b) live job market data get merged into one gap analysis — does one take priority, are they weighted, shown separately? Placeholder — not decided.
 - **Profession-specific depth (§3)**: which profession(s) get real coaching depth first (topic libraries, assessment styles), and how/when does the product expand beyond the first one? Placeholder — not decided.
 - **Assessment format depth**: Should assessments include code execution/grading, or are they conceptual/verbal (chat-based) only for v1?
 - **Plan reset triggers**: Should resets ever happen automatically, or always require learner confirmation?
-- **Retention/spaced repetition**: Should mastered topics be periodically re-tested to catch skill decay, or is assessment a one-time gate per topic?
-- **Web app / CLI / chat parity**: now that platform is a combination, does every capability (5.1–5.14) need to work identically across all three, or can some (e.g., mock interviews) be chat/web-only while others (e.g., quick progress checks) are CLI-first?
+- **Web app / CLI / chat parity**: now that platform is a combination, does every capability (5.1–5.16) need to work identically across all three, or can some (e.g., mock interviews) be chat/web-only while others (e.g., quick progress checks) are CLI-first?
 
 ---
 
@@ -222,6 +253,8 @@ These need stakeholder decisions before/during design:
 - **Human-staffed** mock interviews — a real person conducting the mock (may be a future extension). AI-conducted simulated mock interviews are in scope (5.14).
 - Salary negotiation or offer-stage coaching.
 - Non-technical/behavioral-only role prep (though STAR-story style behavioral prep is in scope as one topic category).
+- **Job-portal URL ingestion** (5.15) — pasting a link and having the coach fetch/scrape the posting itself. Deferred pending the same ToS/access-rights resolution required for Tier 2 crawling (5.3b); v1 accepts pasted text or an uploaded file only.
+- **Fabricated resume content** (5.15) — inventing a skill, title, employer, responsibility, or date not present in the learner's actual background to better match a posting. Never in scope, at any tier — this is a hard rule, not a deferred feature.
 
 ---
 
@@ -238,3 +271,5 @@ The product is successful when a learner can, for a chosen target role:
 - Walk into interviews with real, structured stories grounded in their own experience, correctly framed for the target role/designation.
 - Have real interview outcomes actually change the plan going forward, not just get logged.
 - Pass an AI-conducted mock interview at the target level before facing a real one.
+- Bring a real job posting to the coach and get back a source-tagged gap analysis against it, plus an honestly-labeled read on market trends and a truthfully tailored, ATS-friendly resume draft.
+- Trust that a topic marked "mastered" months ago is still solid — because it's been periodically re-checked, not left untouched since the day it passed.
