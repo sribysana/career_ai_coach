@@ -1,7 +1,7 @@
 # Mission
 
 **Source of requirements**: this project's stakeholder requirements were drawn from a sibling project, `interview_preparation_coach`, specifically:
-- `docs/REQUIREMENTS.md` — the full generic product specification (primary source)
+- `specs/product.md` — the full generic product specification (primary source)
 - `personalizedPlanner.md` / `personalizedPlanner.template.md` — a real (and a templated) instantiation of that spec, used here as a grounding reference, not as a source of requirements in their own right. **No personal data from that instance (employer, project names, target companies, etc.) is carried into this project** — only the generic patterns they demonstrate.
 
 This document is the durable "why" for career_ai_coach. It should change rarely, and only deliberately — treat it as this project's constitution alongside `tech_stack.md` and `roadmap.md`.

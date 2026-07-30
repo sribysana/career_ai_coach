@@ -13,9 +13,9 @@ How to know this phase is actually done and the `phase-0-project-scaffolding` br
 - [ ] Husky pre-commit hook is actually wired, not just installed: manually stage a deliberately unformatted/unlinted file, attempt a commit, confirm it's blocked or auto-fixed by `lint-staged` before the commit completes.
 - [ ] GitHub Actions CI workflow runs green on a push to this branch (or a test PR) — lint, build, and test steps all pass in CI, not just locally.
 - [ ] Repo structure matches `tech_stack.md`: `packages/core`, `packages/ai-adapter`, `apps/cli` exist; `apps/web` and `apps/chat` do **not** exist yet.
-- [ ] No coaching logic anywhere — `packages/core/src` and `packages/ai-adapter/src` contain only placeholder code, nothing implementing any of `docs/REQUIREMENTS.md` §5.1–§5.14.
+- [ ] No coaching logic anywhere — `packages/core/src` and `packages/ai-adapter/src` contain only placeholder code, nothing implementing any of `specs/product.md` §5.1–§5.14.
 - [ ] `.nvmrc` present and `package.json` `engines` field matches it.
-- [ ] Existing root files (`README.md`, `docs/`, `specs/`, `personalizedPlanner.md`, `personalizedPlanner.template.md`, `old_README.md`) are untouched except for the additive `.gitignore` update.
+- [ ] Existing root files (`README.md`, `docs/` — later relocated to `specs/product.md`, see `specs/README.md` — `specs/`, `personalizedPlanner.md`, `personalizedPlanner.template.md`, `old_README.md` — later relocated to `reference/manual-process.md`) are untouched except for the additive `.gitignore` update.
 
 ## Merge criteria
 
